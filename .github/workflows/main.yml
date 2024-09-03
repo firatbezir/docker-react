@@ -19,11 +19,12 @@ jobs:
       - name: Deploy to EB
         uses: einaregilsson/beanstalk-deploy@v21
         with:
-          aws_access_key: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws_secret_key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
+          aws_access_key: ${{ secrets.AWS_ACCESS_KEY }}
+          aws_secret_key: ${{ secrets.AWS_SECRET_KEY }}
           application_name: frontend
           environment_name: Frontend-env
           existing_bucket_name: elasticbeanstalk-eu-north-1-615299743652
           region: eu-north-1
-          version_label: ${{ github.sha }}
+          version_label: ${{ github.run_number }}-${{ github.sha }} # Or just ${{ github.sha }} for uniqueness
           deployment_package: deploy.zip
+          use_existing_version_if_available: true # Add this line to allow reusing existing versions
