@@ -25,6 +25,8 @@ RUN npm run build
 # Use the official Nginx image as the base image to serve the built files.
 FROM nginx
 
+EXPOSE 80
+
 # Copy the built files from the first phase (builder) to the default directory where Nginx serves static files.
 # `--from=builder` references the build phase defined above.
 COPY --from=builder /home/node/app/build /usr/share/nginx/html
