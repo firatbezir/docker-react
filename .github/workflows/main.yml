@@ -1,0 +1,33 @@
+name: CI Pipeline # The name of the CI pipeline.
+
+on:
+  push:
+    branches:
+      - main # This workflow is triggered when there is a push to the 'main' branch.
+  pull_request:
+    branches:
+      - main # This workflow is also triggered for pull requests targeting the 'main' branch.
+
+jobs:
+  build:
+    runs-on: ubuntu-latest # This job will run on the latest Ubuntu version.
+
+    steps:
+    - name: Checkout repository # The first step is to check out the repository.
+      uses: actions/checkout@v2 # Using a pre-built GitHub action to check out the code.
+
+    - name: Set up Node.js # Setting up Node.js in the environment.
+      uses: actions/setup-node@v2 # Using a pre-built GitHub action to set up Node.js.
+      with:
+        node-version: '16' # Specifying the Node.js version to be used, in this case, version 16.
+
+    - name: Install dependencies # Step to install the necessary dependencies.
+      run: npm install # Running npm install to install all project dependencies.
+
+    - name: Build application # Step to build the application.
+      run: npm run build # Running npm run build to compile/build the application.
+
+    - name: Run tests # Step to run the tests.
+      env:
+        CI: true # Setting the CI environment variable to true so that npm test runs in CI mode.
+      run: npm run test # Running npm run test to execute the tests.
