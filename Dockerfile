@@ -19,8 +19,6 @@ COPY . .
 # This will create optimized files in the `build` directory.
 RUN npm run build
 
-
-
 # ---- Second Phase: Run ----
 # Use the official Nginx image as the base image to serve the built files.
 FROM nginx
